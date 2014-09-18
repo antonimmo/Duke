@@ -29,15 +29,20 @@ public class LinkFileWriter {
       this.idprops = config.getIdentityProperties();
   }
 
-  public void write(Record r1, Record r2, boolean match, double confidence)
-    throws IOException {
+  public void write(Record r1, Record r2, boolean match, double confidence) throws IOException {
     write(getid(r1), getid(r2), match, confidence);
   }
 
-  public void write(String id1, String id2, boolean match, double confidence)
-    throws IOException {
-    out.write("" + (match ? "+," : "-,") + id1 + ',' + id2 + ',' + confidence +
-              "\n");
+  public void write(String id1, String id2, boolean match, double confidence) throws IOException {
+    out.write("" + (match ? "+," : "-,") + id1 + ',' + id2 + ',' + confidence + "\n");
+  }
+  
+  public void writeFormatted(String id1, String id2, boolean match, double confidence) throws IOException {
+    out.write("** Match(yes/no): " + (match ? "+," : "-,") + 
+				"\n* Record 1:" + id1 + ',' + 
+				"\n* Record 2:" + id2 + ',' + 
+				"\n* Confidence = " + confidence +
+              	"\n\n");
   }
   
   private String getid(Record r) {
